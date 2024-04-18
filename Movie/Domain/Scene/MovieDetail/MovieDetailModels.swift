@@ -13,11 +13,8 @@
 import UIKit
 
 enum MovieDetail {
-  // MARK: Use cases
-  
-  enum Something {
-    struct Request {
-    }
+  enum FetchMovie {
+    struct Request {}
     struct Response {
         var movie: Movie
     }

@@ -11,86 +11,101 @@
 //
 
 import UIKit
+import SDWebImage
 
-protocol MovieDetailDisplayLogic: class
-{
-  func displaySomething(viewModel: MovieDetail.Something.ViewModel)
+protocol MovieDetailDisplayLogic: AnyObject {
+    func displayMovieDetail(viewModel: MovieDetail.FetchMovie.ViewModel)
 }
 
-class MovieDetailViewController: UIViewController, MovieDetailDisplayLogic
-{
-  var interactor: MovieDetailBusinessLogic?
-  var router: (NSObjectProtocol & MovieDetailRoutingLogic & MovieDetailDataPassing)?
-
-  // MARK: Object lifecycle
-  
-  override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
-  {
-    super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-    setup()
-  }
-  
-  required init?(coder aDecoder: NSCoder)
-  {
-    super.init(coder: aDecoder)
-    setup()
-  }
-  
-  // MARK: Setup
-  
-  private func setup()
-  {
-    let viewController = self
-    let interactor = MovieDetailInteractor()
-    let presenter = MovieDetailPresenter()
-    let router = MovieDetailRouter()
-    viewController.interactor = interactor
-    viewController.router = router
-    interactor.presenter = presenter
-    presenter.viewController = viewController
-    router.viewController = viewController
-    router.dataStore = interactor
-  }
-  
-  // MARK: Routing
-  
-  override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-  {
-    if let scene = segue.identifier {
-      let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
-      if let router = router, router.responds(to: selector) {
-        router.perform(selector, with: segue)
-      }
+class MovieDetailViewController: UIViewController, MovieDetailDisplayLogic {
+    var interactor: MovieDetailBusinessLogic?
+    var router: (NSObjectProtocol & MovieDetailRoutingLogic & MovieDetailDataPassing)?
+    
+    // MARK: Object lifecycle
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        setup()
     }
-  }
-  
-  // MARK: View lifecycle
-  
-  override func viewDidLoad()
-  {
-    super.viewDidLoad()
-    loadMovie()
-      self.view.addSubview(nameTextField)
-           
-           // Configurer les contraintes de mise en page (Auto Layout)
-      nameTextField.translatesAutoresizingMaskIntoConstraints = false
-           NSLayoutConstraint.activate([
-            nameTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-            nameTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            nameTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
-           ])
-  }
-  
-  // MARK: Do something
-  
-  var nameTextField = UITextField()
-  
-  func loadMovie() {
-    let request = MovieDetail.Something.Request()
-    interactor?.doSomething(request: request)
-  }
-  
-  func displaySomething(viewModel: MovieDetail.Something.ViewModel) {
-      nameTextField.text = viewModel.movie.title
-  }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        setup()
+    }
+    
+    // MARK: Setup
+    
+    private func setup() {
+        let viewController = self
+        let interactor = MovieDetailInteractor()
+        let presenter = MovieDetailPresenter()
+        let router = MovieDetailRouter()
+        viewController.interactor = interactor
+        viewController.router = router
+        interactor.presenter = presenter
+        presenter.viewController = viewController
+        router.viewController = viewController
+        router.dataStore = interactor
+    }
+    
+    // MARK: View lifecycle
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        loadMovie()
+    }
+    
+    override func loadView() {
+        view = UIView()
+        view.backgroundColor = .systemBackground
+        
+        backdropImageView.translatesAutoresizingMaskIntoConstraints = false
+        backdropImageView.contentMode = .scaleAspectFit
+        view.addSubview(backdropImageView)
+        
+        posterImageView.translatesAutoresizingMaskIntoConstraints = false
+        posterImageView.contentMode = .scaleAspectFit
+        self.backdropImageView.addSubview(posterImageView)
+        
+        descriptionLabel.numberOfLines = 0
+        descriptionLabel.textAlignment = .left
+        descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
+        descriptionLabel.sizeToFit()
+        
+        self.view.addSubview(descriptionLabel)
+        
+        NSLayoutConstraint.activate([
+            backdropImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            backdropImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            backdropImageView.heightAnchor.constraint(equalToConstant: 300),
+            
+            posterImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 130),
+            posterImageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -50),
+            posterImageView.heightAnchor.constraint(equalToConstant: 200),
+            
+            descriptionLabel.topAnchor.constraint(equalTo:  backdropImageView.bottomAnchor, constant: 36),
+            descriptionLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            descriptionLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+        ])
+    }
+    
+    // MARK: Do something
+    
+    var nameTextField = UILabel()
+    var posterImageView = UIImageView()
+    var descriptionLabel = UILabel()
+    var backdropImageView = UIImageView()
+    
+    func loadMovie() {
+        let request = MovieDetail.FetchMovie.Request()
+        interactor?.fetchMovie(request: request)
+    }
+    
+    func displayMovieDetail(viewModel: MovieDetail.FetchMovie.ViewModel) {
+        navigationItem.title = viewModel.movie.title
+        descriptionLabel.text = viewModel.movie.overview
+        
+        posterImageView.sd_setImage(with: URL(string: "https://image.tmdb.org/t/p/w500/" + viewModel.movie.posterPath), placeholderImage: UIImage(named: "placeholder.png"))
+        backdropImageView.sd_setImage(with: URL(string: "https://image.tmdb.org/t/p/w500/" + viewModel.movie.backdropPath), placeholderImage: UIImage(named: "placeholder.png"))
+    }
 }

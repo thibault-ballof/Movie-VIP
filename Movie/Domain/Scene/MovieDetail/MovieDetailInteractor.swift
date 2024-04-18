@@ -14,7 +14,7 @@ import UIKit
 
 protocol MovieDetailBusinessLogic
 {
-    func doSomething(request: MovieDetail.Something.Request)
+    func fetchMovie(request: MovieDetail.FetchMovie.Request)
 }
 
 protocol MovieDetailDataStore
@@ -30,12 +30,9 @@ class MovieDetailInteractor: MovieDetailBusinessLogic, MovieDetailDataStore
     
     // MARK: Do something
     
-    func doSomething(request: MovieDetail.Something.Request)
-    {
-        worker = MovieDetailWorker()
-        worker?.doSomeWork()
+    func fetchMovie(request: MovieDetail.FetchMovie.Request) {
         guard let movie else { return }
-        let response = MovieDetail.Something.Response(movie: movie)
-        presenter?.presentSomething(response: response)
+        let response = MovieDetail.FetchMovie.Response(movie: movie)
+        presenter?.presentMovieDetail(response: response)
     }
 }

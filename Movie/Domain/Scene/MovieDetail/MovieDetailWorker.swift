@@ -12,9 +12,4 @@
 
 import UIKit
 
-class MovieDetailWorker
-{
-  func doSomeWork()
-  {
-  }
-}
+class MovieDetailWorker { }
