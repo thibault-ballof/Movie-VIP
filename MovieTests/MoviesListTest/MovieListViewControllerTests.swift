@@ -73,16 +73,15 @@ class MovieListViewControllerTests: XCTestCase
     XCTAssertTrue(spy.doSomethingCalled, "viewDidLoad() should ask the interactor to do something")
   }
   
-  func testDisplaySomething()
-  {
+  func testDisplaySomething() {
     // Given
-      let viewModel = MovieList.FetchMoviesList.ViewModel(movies: []) // add mock data
+      let viewModel = MovieList.FetchMoviesList.ViewModel(movies: [Movie(backdropPath: "", title: "Dune 2", posterPath: "", releaseDate: "", overview: "")]) // add mock data
     
     // When
     loadView()
     sut.displayMovieList(viewModel: viewModel)
     
     // Then
-    //XCTAssertEqual(sut.nameTextField.text, "", "displaySomething(viewModel:) should update the name text field")
+      XCTAssertEqual(sut.movies.count, 1)
   }
 }

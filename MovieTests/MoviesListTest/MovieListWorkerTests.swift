@@ -36,19 +36,22 @@ class MovieListWorkerTests: XCTestCase
   
   func setupMovieListWorker()
   {
-    sut = MovieListWorker()
+    sut = MovieListWorker(service: MockService())
   }
   
   // MARK: Test doubles
   
   // MARK: Tests
   
-  func testSomething()
+  func testSomething() async
   {
     // Given
-    
+      
+  let data = try? await sut.getMoviesList()
     // When
-    
+
     // Then
+      XCTAssertEqual(data?.results.count, 1)
+    
   }
 }

@@ -15,53 +15,52 @@ import XCTest
 
 class MovieListPresenterTests: XCTestCase
 {
-  // MARK: Subject under test
-  
-  var sut: MovieListPresenter!
-  
-  // MARK: Test lifecycle
-  
-  override func setUp()
-  {
-    super.setUp()
-    setupMovieListPresenter()
-  }
-  
-  override func tearDown()
-  {
-    super.tearDown()
-  }
-  
-  // MARK: Test setup
-  
-  func setupMovieListPresenter()
-  {
-    sut = MovieListPresenter()
-  }
-  
-  // MARK: Test doubles
-  
-  class MovieListDisplayLogicSpy: MovieListDisplayLogic {
-    var displaySomethingCalled = false
-      
-      func displayMovieList(viewModel: MovieList.FetchMoviesList.ViewModel) {
-          displaySomethingCalled = true
-      }
-  }
-  
-  // MARK: Tests
-  
-  func testPresentSomething()
-  {
-    // Given
-    let spy = MovieListDisplayLogicSpy()
-    sut.viewController = spy
-      let response = MovieList.FetchMoviesList.Response(movieList: MoviesResults.init(results: []))
+    // MARK: Subject under test
     
-    // When
-    sut.presentMovieList(response: response)
+    var sut: MovieListPresenter!
     
-    // Then
-    XCTAssertTrue(spy.displaySomethingCalled, "presentSomething(response:) should ask the view controller to display the result")
-  }
+    // MARK: Test lifecycle
+    
+    override func setUp()
+    {
+        super.setUp()
+        setupMovieListPresenter()
+    }
+    
+    override func tearDown()
+    {
+        super.tearDown()
+    }
+    
+    // MARK: Test setup
+    
+    func setupMovieListPresenter()
+    {
+        sut = MovieListPresenter()
+    }
+    
+    // MARK: Test doubles
+    
+    class MovieListDisplayLogicSpy: MovieListDisplayLogic {
+        var displaySomethingCalled = false
+        
+        func displayMovieList(viewModel: MovieList.FetchMoviesList.ViewModel) {
+            displaySomethingCalled = true
+        }
+    }
+    
+    // MARK: Tests
+    
+    func testPresentSomething() {
+        // Given
+        let spy = MovieListDisplayLogicSpy()
+        sut.viewController = spy
+        let response = MovieList.FetchMoviesList.Response(movieList: MoviesResults.init(results: []))
+        
+        // When
+        sut.presentMovieList(response: response)
+        
+        // Then
+        XCTAssertTrue(spy.displaySomethingCalled, "presentSomething(response:) should ask the view controller to display the result")
+    }
 }
