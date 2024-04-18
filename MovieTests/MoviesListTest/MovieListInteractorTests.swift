@@ -37,6 +37,7 @@ class MovieListInteractorTests: XCTestCase
   func setupMovieListInteractor()
   {
     sut = MovieListInteractor()
+      
   }
   
   // MARK: Test doubles

@@ -17,8 +17,6 @@ class Service: Networking {
     
     func fetch<T: Decodable>(type: T.Type) async throws -> T {
         
-        //let url = baseURL.appendingPathComponent("endpoint")
-        
         var request = URLRequest(url: baseURL)
         request.httpMethod = "GET"
         
