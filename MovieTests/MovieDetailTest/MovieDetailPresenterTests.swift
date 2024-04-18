@@ -44,8 +44,8 @@ class MovieDetailPresenterTests: XCTestCase
   class MovieDetailDisplayLogicSpy: MovieDetailDisplayLogic
   {
     var displaySomethingCalled = false
-    
-    func displaySomething(viewModel: MovieDetail.Something.ViewModel)
+   
+      func displayMovieDetail(viewModel: MovieDetail.FetchMovie.ViewModel)
     {
       displaySomethingCalled = true
     }
@@ -58,10 +58,10 @@ class MovieDetailPresenterTests: XCTestCase
     // Given
     let spy = MovieDetailDisplayLogicSpy()
     sut.viewController = spy
-    let response = MovieDetail.Something.Response()
+      let response = MovieDetail.FetchMovie.Response(movie: Movie(backdropPath: "", title: "Dune 2", posterPath: "", releaseDate: "", overview: ""))
     
     // When
-    sut.presentSomething(response: response)
+    sut.presentMovieDetail(response: response)
     
     // Then
     XCTAssertTrue(spy.displaySomethingCalled, "presentSomething(response:) should ask the view controller to display the result")

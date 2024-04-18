@@ -45,7 +45,7 @@ class MovieDetailInteractorTests: XCTestCase
   {
     var presentSomethingCalled = false
     
-    func presentSomething(response: MovieDetail.Something.Response)
+      func presentMovieDetail(response: MovieDetail.FetchMovie.Response)
     {
       presentSomethingCalled = true
     }
@@ -53,15 +53,15 @@ class MovieDetailInteractorTests: XCTestCase
   
   // MARK: Tests
   
-  func testDoSomething()
-  {
+  func testDoSomething() {
     // Given
     let spy = MovieDetailPresentationLogicSpy()
     sut.presenter = spy
-    let request = MovieDetail.Something.Request()
+      let request = MovieDetail.FetchMovie.Request()
     
     // When
-    sut.doSomething(request: request)
+
+    sut.fetchMovie(request: request)
     
     // Then
     XCTAssertTrue(spy.presentSomethingCalled, "doSomething(request:) should ask the presenter to format the result")

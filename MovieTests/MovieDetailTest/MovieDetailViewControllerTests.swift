@@ -39,9 +39,7 @@ class MovieDetailViewControllerTests: XCTestCase
   
   func setupMovieDetailViewController()
   {
-    let bundle = Bundle.main
-    let storyboard = UIStoryboard(name: "Main", bundle: bundle)
-    sut = storyboard.instantiateViewController(withIdentifier: "MovieDetailViewController") as! MovieDetailViewController
+    sut = MovieDetailViewController()
   }
   
   func loadView()
@@ -56,7 +54,7 @@ class MovieDetailViewControllerTests: XCTestCase
   {
     var doSomethingCalled = false
     
-    func doSomething(request: MovieDetail.Something.Request)
+      func fetchMovie(request: MovieDetail.FetchMovie.Request)
     {
       doSomethingCalled = true
     }
@@ -80,13 +78,13 @@ class MovieDetailViewControllerTests: XCTestCase
   func testDisplaySomething()
   {
     // Given
-    let viewModel = MovieDetail.Something.ViewModel()
+      let viewModel = MovieDetail.FetchMovie.ViewModel(movie: Movie(backdropPath: "", title: "", posterPath: "", releaseDate: "", overview: "Dune 2"))
     
     // When
     loadView()
-    sut.displaySomething(viewModel: viewModel)
+    sut.displayMovieDetail(viewModel: viewModel)
     
     // Then
-    //XCTAssertEqual(sut.nameTextField.text, "", "displaySomething(viewModel:) should update the name text field")
+      XCTAssertEqual(sut.descriptionLabel.text, "Dune 2", "displaySomething(viewModel:) should update the name text field")
   }
 }
