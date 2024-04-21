@@ -12,7 +12,7 @@ protocol Networking {
 }
 
 class Service: Networking {
-    let baseURL = URL(string: "https://api.themoviedb.org/3/trending/movie/day?api_key=edef578eed4cd92a64fa40066ad4020b")!
+    let baseURL = URL(string: ApiEndpoints.BaseURL.moviesBaseUrl + "api_key=edef578eed4cd92a64fa40066ad4020b")!
     
     
     func fetch<T: Decodable>(type: T.Type) async throws -> T {
@@ -54,7 +54,6 @@ class MockService: Networking {
     
 }
 
-
 enum NetworkError: Error {
     case invalidURL
     case requestFailed
@@ -62,22 +61,4 @@ enum NetworkError: Error {
 }
 
 
-struct MoviesResults: Decodable {
-    let results: [Movie]
-}
 
-// MARK: - Result
-struct Movie: Decodable {
-    let backdropPath: String
-    let title: String
-    let posterPath: String
-    let releaseDate: String
-    let overview: String
-
-    enum CodingKeys: String, CodingKey {
-        case title, overview
-        case backdropPath = "backdrop_path"
-        case posterPath = "poster_path"
-        case releaseDate = "release_date"
-    }
-}

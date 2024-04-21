@@ -34,17 +34,16 @@ class MovieDetailInteractorTests: XCTestCase
   
   // MARK: Test setup
   
-  func setupMovieDetailInteractor()
-  {
+  func setupMovieDetailInteractor() {
     sut = MovieDetailInteractor()
+    sut.movie =  Movie(backdropPath: "", title: "Dune 2", posterPath: "", releaseDate: "", overview: "")
   }
   
   // MARK: Test doubles
   
-  class MovieDetailPresentationLogicSpy: MovieDetailPresentationLogic
-  {
+  class MovieDetailPresentationLogicSpy: MovieDetailPresentationLogic, MovieDetailDataStore{
     var presentSomethingCalled = false
-    
+      var movie: Movie?
       func presentMovieDetail(response: MovieDetail.FetchMovie.Response)
     {
       presentSomethingCalled = true

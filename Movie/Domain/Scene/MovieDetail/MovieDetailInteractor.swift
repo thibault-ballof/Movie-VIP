@@ -12,18 +12,15 @@
 
 import UIKit
 
-protocol MovieDetailBusinessLogic
-{
+protocol MovieDetailBusinessLogic {
     func fetchMovie(request: MovieDetail.FetchMovie.Request)
 }
 
-protocol MovieDetailDataStore
-{
+protocol MovieDetailDataStore {
     var movie: Movie? { get set }
 }
 
-class MovieDetailInteractor: MovieDetailBusinessLogic, MovieDetailDataStore
-{
+class MovieDetailInteractor: MovieDetailBusinessLogic, MovieDetailDataStore {
     var presenter: MovieDetailPresentationLogic?
     var worker: MovieDetailWorker?
     var movie: Movie?
@@ -31,7 +28,7 @@ class MovieDetailInteractor: MovieDetailBusinessLogic, MovieDetailDataStore
     // MARK: Do something
     
     func fetchMovie(request: MovieDetail.FetchMovie.Request) {
-        guard let movie else { return }
+       guard let movie else { return }
         let response = MovieDetail.FetchMovie.Response(movie: movie)
         presenter?.presentMovieDetail(response: response)
     }

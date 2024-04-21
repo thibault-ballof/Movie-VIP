@@ -65,14 +65,14 @@ class MovieDetailViewController: UIViewController, MovieDetailDisplayLogic {
         
         posterImageView.translatesAutoresizingMaskIntoConstraints = false
         posterImageView.contentMode = .scaleAspectFit
-        self.backdropImageView.addSubview(posterImageView)
+        backdropImageView.addSubview(posterImageView)
         
         descriptionLabel.numberOfLines = 0
         descriptionLabel.textAlignment = .left
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         descriptionLabel.sizeToFit()
         
-        self.view.addSubview(descriptionLabel)
+        view.addSubview(descriptionLabel)
         
         NSLayoutConstraint.activate([
             backdropImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -105,7 +105,7 @@ class MovieDetailViewController: UIViewController, MovieDetailDisplayLogic {
         navigationItem.title = viewModel.movie.title
         descriptionLabel.text = viewModel.movie.overview
         
-        posterImageView.sd_setImage(with: URL(string: "https://image.tmdb.org/t/p/w500/" + viewModel.movie.posterPath), placeholderImage: UIImage(named: "placeholder.png"))
-        backdropImageView.sd_setImage(with: URL(string: "https://image.tmdb.org/t/p/w500/" + viewModel.movie.backdropPath), placeholderImage: UIImage(named: "placeholder.png"))
+        posterImageView.sd_setImage(with: URL(string: ApiEndpoints.BaseURL.imagesBaseUrl + viewModel.movie.posterPath), placeholderImage: UIImage(named: "placeholder.png"))
+        backdropImageView.sd_setImage(with: URL(string: ApiEndpoints.BaseURL.imagesBaseUrl + viewModel.movie.backdropPath), placeholderImage: UIImage(named: "placeholder.png"))
     }
 }

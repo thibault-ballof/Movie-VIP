@@ -288,22 +288,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "7E74D891-5D05-4EF3-AD8D-014749E8899C"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MovieTests/MovieDetailTest/MovieDetailInteractorTests.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "48"
-            endingLineNumber = "48"
-            landmarkName = "presentMovieDetail(response:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "391977C5-A3E8-437A-AE87-8680D0B9ACEE"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -311,8 +295,8 @@
             filePath = "MovieTests/MoviesListTest/MovieListInteractorTests.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "48"
-            endingLineNumber = "48"
+            startingLineNumber = "49"
+            endingLineNumber = "49"
             landmarkName = "presentMovieList(response:)"
             landmarkType = "7">
          </BreakpointContent>
