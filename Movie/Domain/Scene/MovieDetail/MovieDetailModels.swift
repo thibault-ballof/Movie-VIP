@@ -19,7 +19,11 @@ enum MovieDetail {
         var movie: Movie
     }
     struct ViewModel {
-        var movie: Movie
+        var title: String
+        var overview: String
+        var posterPath: String
+        var backdropPath: String
+    
     }
   }
 }

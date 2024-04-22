@@ -22,8 +22,6 @@ class Service: Networking {
         
         do {
             let (data, error) = try await URLSession.shared.data(for: request)
-            print(data)
-            print(error)
             let decoder = JSONDecoder()
             let responseData = try decoder.decode(T.self, from: data)
             

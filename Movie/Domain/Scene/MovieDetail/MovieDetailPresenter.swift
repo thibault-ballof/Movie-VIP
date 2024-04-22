@@ -22,7 +22,7 @@ class MovieDetailPresenter: MovieDetailPresentationLogic {
   // MARK: Do something
   
   func presentMovieDetail(response: MovieDetail.FetchMovie.Response) {
-      let viewModel = MovieDetail.FetchMovie.ViewModel(movie: response.movie)
+      let viewModel = MovieDetail.FetchMovie.ViewModel(title: response.movie.title, overview: response.movie.overview, posterPath: response.movie.posterPath, backdropPath: response.movie.backdropPath)
     viewController?.displayMovieDetail(viewModel: viewModel)
   }
 }

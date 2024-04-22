@@ -102,10 +102,10 @@ class MovieDetailViewController: UIViewController, MovieDetailDisplayLogic {
     }
     
     func displayMovieDetail(viewModel: MovieDetail.FetchMovie.ViewModel) {
-        navigationItem.title = viewModel.movie.title
-        descriptionLabel.text = viewModel.movie.overview
+        navigationItem.title = viewModel.title
+        descriptionLabel.text = viewModel.overview
         
-        posterImageView.sd_setImage(with: URL(string: ApiEndpoints.BaseURL.imagesBaseUrl + viewModel.movie.posterPath), placeholderImage: UIImage(named: "placeholder.png"))
-        backdropImageView.sd_setImage(with: URL(string: ApiEndpoints.BaseURL.imagesBaseUrl + viewModel.movie.backdropPath), placeholderImage: UIImage(named: "placeholder.png"))
+        posterImageView.sd_setImage(with: URL(string: ApiEndpoints.BaseURL.imagesBaseUrl + viewModel.posterPath), placeholderImage: UIImage(named: "placeholder.png"))
+        backdropImageView.sd_setImage(with: URL(string: ApiEndpoints.BaseURL.imagesBaseUrl + viewModel.backdropPath), placeholderImage: UIImage(named: "placeholder.png"))
     }
 }
